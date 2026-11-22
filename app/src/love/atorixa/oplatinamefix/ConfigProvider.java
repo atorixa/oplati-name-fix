@@ -1,4 +1,4 @@
-package by.atorixa.oplatinamefix;
+package love.atorixa.oplatinamefix;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;

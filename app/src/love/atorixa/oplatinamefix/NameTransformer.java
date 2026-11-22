@@ -1,4 +1,4 @@
-package by.atorixa.oplatinamefix;
+package love.atorixa.oplatinamefix;
 
 import java.util.ArrayList;
 import java.util.List;

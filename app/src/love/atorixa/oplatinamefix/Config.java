@@ -1,4 +1,4 @@
-package by.atorixa.oplatinamefix;
+package love.atorixa.oplatinamefix;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -12,7 +12,7 @@ import android.net.Uri;
  */
 public final class Config {
 
-    public static final String AUTHORITY = "by.atorixa.oplatinamefix.config";
+    public static final String AUTHORITY = "love.atorixa.oplatinamefix.config";
     public static final String PREFS = "config";
 
     public static final String K_OLD_FIRST = "old_first";

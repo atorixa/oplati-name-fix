@@ -4,6 +4,16 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.2] - 2026-11-22
+
+### Changed
+
+- **Application ID renamed** from `by.atorixa.oplatinamefix` to `love.atorixa.oplatinamefix`.
+  The old ID claimed the `atorixa.by` domain, which the author does not own; the new one
+  matches `atorixa.love`, so the module can pass the LSPosed / Vector catalogue domain
+  verification. Update path: uninstall 1.1 first - the renamed package installs as a
+  separate app and starts with an empty configuration.
+
 ## [1.1] - 2026-11-22
 
 ### Added

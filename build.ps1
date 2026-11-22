@@ -45,7 +45,7 @@ if ($LASTEXITCODE -ne 0) { throw 'javac failed' }
 
 Write-Host "d8"
 $d8 = if ($isWin) { Join-Path $bt 'd8.bat' } else { Join-Path $bt 'd8' }
-$cls = @(Get-ChildItem -Recurse -File (Join-Path $classes 'by') -Filter *.class | ForEach-Object { $_.FullName })
+$cls = @(Get-ChildItem -Recurse -File (Join-Path $classes 'love') -Filter *.class | ForEach-Object { $_.FullName })
 & $d8 --release --min-api 28 --lib $aj --output $dex @cls
 if ($LASTEXITCODE -ne 0) { throw 'd8 failed' }
 

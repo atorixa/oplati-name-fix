@@ -1,4 +1,4 @@
-package by.atorixa.oplatinamefix;
+package love.atorixa.oplatinamefix;
 
 import java.io.BufferedReader;
 import java.io.File;

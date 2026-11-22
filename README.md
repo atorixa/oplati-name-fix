@@ -79,7 +79,7 @@ The module ships with placeholder defaults — `Имя` / `Фамилия` / `И
 Open the settings screen from the launcher icon, from Vector's module page (gear button), or from a shell:
 
 ```sh
-adb shell am start -n by.atorixa.oplatinamefix/.SettingsActivity
+adb shell am start -n love.atorixa.oplatinamefix/.SettingsActivity
 ```
 
 | Field | Meaning |
@@ -168,7 +168,7 @@ Note: `keystore.jks` is git-ignored on purpose. Never publish a key you sign rel
 3. Confirm the config was saved:
 
    ```sh
-   adb shell su -c 'cat /data/data/by.atorixa.oplatinamefix/files/config.properties'
+   adb shell su -c 'cat /data/data/love.atorixa.oplatinamefix/files/config.properties'
    ```
 
 4. Force-stop and reopen Oplati.

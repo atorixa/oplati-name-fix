@@ -77,7 +77,7 @@ Oplati всегда показывает имя, записанное в акк�
 Экран настроек открывается из иконки в лаунчере, из страницы модуля в Vector (кнопка с шестерёнкой) или из шелла:
 
 ```sh
-adb shell am start -n by.atorixa.oplatinamefix/.SettingsActivity
+adb shell am start -n love.atorixa.oplatinamefix/.SettingsActivity
 ```
 
 | Поле | Смысл |
@@ -166,7 +166,7 @@ keytool -genkeypair -keystore keystore.jks -alias test -keyalg RSA -keysize 2048
 3. Проверь, что конфиг сохранился:
 
    ```sh
-   adb shell su -c 'cat /data/data/by.atorixa.oplatinamefix/files/config.properties'
+   adb shell su -c 'cat /data/data/love.atorixa.oplatinamefix/files/config.properties'
    ```
 
 4. Сделай force-stop и открой Oplati заново.
