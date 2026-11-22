@@ -1,5 +1,7 @@
 # Oplati Name Fix
 
+[![build](https://github.com/atorixa/oplati-name-fix/actions/workflows/build.yml/badge.svg)](https://github.com/atorixa/oplati-name-fix/actions/workflows/build.yml)
+
 A small Xposed module that changes the **name shown on screen** inside the Oplati app (`by.lwo.oplati`) — for people who want the app to display a different first name, surname or avatar initials than the ones on the account.
 
 It rewrites text at render time only. Nothing is sent anywhere, nothing in your account, profile, database or network traffic changes.

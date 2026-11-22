@@ -14,11 +14,13 @@ $ErrorActionPreference = 'Stop'
 $root   = Split-Path -Parent $MyInvocation.MyCommand.Path
 $app    = Join-Path $root 'app'
 $out    = Join-Path $root 'build'
+$isWin  = if ($null -ne $IsWindows) { $IsWindows } else { $env:OS -eq 'Windows_NT' }
 $aj     = Join-Path $Sdk 'platforms\android-36\android.jar'
 $btDir  = Join-Path $Sdk 'build-tools'
 $bt     = Get-ChildItem -Directory $btDir | Sort-Object Name -Descending | Select-Object -First 1
-$ks     = Join-Path $root 'keystore.jks'
-$ksPass = 'android'
+$ks     = if ($env:KEYSTORE_FILE) { $env:KEYSTORE_FILE } else { Join-Path $root 'keystore.jks' }
+$ksPass = if ($env:KEYSTORE_PASS) { $env:KEYSTORE_PASS } else { 'android' }
+$ksAlias = if ($env:KEYSTORE_ALIAS) { $env:KEYSTORE_ALIAS } else { 'test' }
 
 if (-not (Test-Path $aj)) { throw "android.jar not found: $aj" }
 if (-not $bt) { throw "build-tools not found under $btDir" }
@@ -42,12 +44,14 @@ Write-Host "javac"
 if ($LASTEXITCODE -ne 0) { throw 'javac failed' }
 
 Write-Host "d8"
+$d8 = if ($isWin) { Join-Path $bt 'd8.bat' } else { Join-Path $bt 'd8' }
 $cls = @(Get-ChildItem -Recurse -File (Join-Path $classes 'by') -Filter *.class | ForEach-Object { $_.FullName })
-& (Join-Path $bt 'd8.bat') --release --min-api 28 --lib $aj --output $dex @cls
+& $d8 --release --min-api 28 --lib $aj --output $dex @cls
 if ($LASTEXITCODE -ne 0) { throw 'd8 failed' }
 
 Write-Host "aapt2 link"
-& (Join-Path $bt 'aapt2.exe') link -o $unsigned --manifest (Join-Path $app 'AndroidManifest.xml') `
+$aapt2 = if ($isWin) { Join-Path $bt 'aapt2.exe' } else { Join-Path $bt 'aapt2' }
+& $aapt2 link -o $unsigned --manifest (Join-Path $app 'AndroidManifest.xml') `
     -I $aj --min-sdk-version 28 --target-sdk-version 36
 if ($LASTEXITCODE -ne 0) { throw 'aapt2 failed' }
 
@@ -70,11 +74,13 @@ try {
 }
 
 Write-Host "zipalign"
-& (Join-Path $bt 'zipalign.exe') -p -f 4 $unsigned $aligned
+$zipalign = if ($isWin) { Join-Path $bt 'zipalign.exe' } else { Join-Path $bt 'zipalign' }
+& $zipalign -p -f 4 $unsigned $aligned
 if ($LASTEXITCODE -ne 0) { throw 'zipalign failed' }
 
 Write-Host "apksigner"
-& (Join-Path $bt 'apksigner.bat') sign --ks $ks --ks-key-alias test `
+$apksigner = if ($isWin) { Join-Path $bt 'apksigner.bat' } else { Join-Path $bt 'apksigner' }
+& $apksigner sign --ks $ks --ks-key-alias $ksAlias `
     --ks-pass "pass:$ksPass" --key-pass "pass:$ksPass" --out $final $aligned
 if ($LASTEXITCODE -ne 0) { throw 'apksigner failed' }
 
