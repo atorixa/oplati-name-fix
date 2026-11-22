@@ -9,9 +9,9 @@
         android:allowBackup="false"
         android:hasCode="true">
 
-        <!-- Settings UI. No LAUNCHER category on purpose: nothing appears in the
-             app drawer. Open it from the Xposed manager (Vector / LSPosed) or by
-             launching the activity directly. -->
+        <!-- Settings UI. The LAUNCHER category is required: Xposed managers
+             resolve module settings with getLaunchIntentForPackage(), which
+             returns null without it. Side effect: an icon in the app drawer. -->
         <activity
             android:name=".SettingsActivity"
             android:label="Oplati Name Fix"
@@ -24,7 +24,7 @@
         </activity>
 
         <!-- Read-only bridge: the hooked process of the target app cannot read
-             this package's SharedPreferences directly, so it queries them here. -->
+             this package's private storage, so it queries the settings here. -->
         <provider
             android:name=".ConfigProvider"
             android:authorities="by.atorixa.oplatinamefix.config"
