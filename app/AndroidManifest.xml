@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="by.atorixa.oplatinamefix"
+    android:versionCode="2"
+    android:versionName="1.1">
+
+    <application
+        android:label="Oplati Name Fix"
+        android:allowBackup="false"
+        android:hasCode="true">
+
+        <!-- Settings UI. No LAUNCHER category on purpose: nothing appears in the
+             app drawer. Open it from the Xposed manager (Vector / LSPosed) or by
+             launching the activity directly. -->
+        <activity
+            android:name=".SettingsActivity"
+            android:label="Oplati Name Fix"
+            android:exported="true"
+            android:theme="@android:style/Theme.DeviceDefault.DayNight">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Read-only bridge: the hooked process of the target app cannot read
+             this package's SharedPreferences directly, so it queries them here. -->
+        <provider
+            android:name=".ConfigProvider"
+            android:authorities="by.atorixa.oplatinamefix.config"
+            android:exported="true"
+            android:enabled="true" />
+
+        <meta-data android:name="xposedmodule" android:value="true" />
+        <meta-data android:name="xposeddescription"
+            android:value="Display-only name replacement for the Oplati app. Nothing is stored or sent." />
+        <meta-data android:name="xposedminversion" android:value="93" />
+    </application>
+</manifest>
