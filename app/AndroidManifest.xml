@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="love.atorixa.oplatinamefix"
-    android:versionCode="3"
-    android:versionName="1.2">
+    android:versionCode="4"
+    android:versionName="1.3">
 
     <application
         android:label="Oplati Name Fix"
         android:allowBackup="false"
         android:hasCode="true">
 
-        <!-- Settings UI. The LAUNCHER category is required: Xposed managers
-             resolve module settings with getLaunchIntentForPackage(), which
-             returns null without it. Side effect: an icon in the app drawer. -->
+        <!-- Settings UI. The INFO category is deliberate: it is not shown in
+             the launcher drawer, but PackageManager.getLaunchIntentForPackage()
+             resolves it first, so Xposed managers still get a settings entry.
+             (A LAUNCHER category would work too, at the cost of a visible icon.) -->
         <activity
             android:name=".SettingsActivity"
             android:label="Oplati Name Fix"
@@ -19,7 +20,7 @@
             android:theme="@android:style/Theme.DeviceDefault.DayNight">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.INFO" />
             </intent-filter>
         </activity>
 

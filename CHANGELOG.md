@@ -4,6 +4,17 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.3] - 2026-11-23
+
+### Changed
+
+- **No launcher icon.** The settings activity now declares `android.intent.category.INFO`
+  instead of `LAUNCHER`. `PackageManager.getLaunchIntentForPackage()` resolves `INFO` first,
+  so the gear button in Vector / LSPosed still opens the settings, while the app drawer
+  stays clean. Opening the screen directly still works:
+  `adb shell am start -n love.atorixa.oplatinamefix/.SettingsActivity`.
+  Text replacement itself is unchanged.
+
 ## [1.2] - 2026-11-22
 
 ### Changed

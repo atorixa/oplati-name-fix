@@ -76,7 +76,7 @@ The module ships with placeholder defaults — `Имя` / `Фамилия` / `И
 
 ## Settings
 
-Open the settings screen from the launcher icon, from Vector's module page (gear button), or from a shell:
+Open the settings screen from Vector's module page (gear button) or from a shell. The module has no launcher icon — see [No launcher icon](#no-launcher-icon):
 
 ```sh
 adb shell am start -n love.atorixa.oplatinamefix/.SettingsActivity
@@ -101,6 +101,16 @@ Buttons:
 If the "now" fields are left empty, that replacement is skipped. The initials field is independent: when it is empty, the module derives initials automatically from the first letters of the configured name and surname.
 
 After saving, Oplati must be reopened — screens that are already drawn keep their old text until they are recreated.
+
+### No launcher icon
+
+The settings screen is declared with the `INFO` category, not `LAUNCHER`. Android's `PackageManager.getLaunchIntentForPackage()` checks `INFO` first, so Vector (and LSPosed) still get a settings entry, while the app drawer stays clean.
+
+Ways to open it:
+
+- Vector → **Modules** → **Oplati Name Fix** → gear icon;
+- shell: `adb shell am start -n love.atorixa.oplatinamefix/.SettingsActivity`;
+- any activity launcher app that can start exported activities.
 
 ---
 
